@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 678065529
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d1e393d9e459859303304f324f905fe0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7dfb045827e1bc42b15dd84b6536b54c
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: d1e393d9e459859303304f324f905fe0
+HashAppended: 0
+ClassTypes:
+- Class: 114
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/PartDesc.asset
+Dependencies: []
