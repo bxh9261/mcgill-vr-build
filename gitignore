@@ -1,0 +1,16 @@
+
+# Ignore Unity build artifacts
+*.exe
+*.dll
+*.pdb
+*.apk
+*.unitypackage
+
+# Ignore large Unity data files
+*.assets
+*.resS
+
+# Ignore user-specific files
+*.user
+*.suo
+*.log
