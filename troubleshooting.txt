@@ -1,0 +1,88 @@
+✅ 1. Check VR Plugin Compatibility
+Make sure you are using the correct XR plugin for SteamVR. Unity deprecated the built-in OpenVR support in recent versions.
+
+If you're using Unity 2020.1+:
+
+You must use the SteamVR Plugin from the Unity Asset Store.
+
+Install SteamVR Unity Plugin (from Valve) via the Unity Package Manager or Asset Store.
+
+Also install XR Plugin Management and enable OpenVR Loader under the XR Plug-in Management > PC, Mac & Linux Standalone settings.
+
+✅ 2. Ensure the Build Uses the Correct XR Runtime
+Even if OpenVR is referenced, Unity might default to Oculus or another runtime. Here's what to check:
+
+Go to Windows Settings > Mixed Reality > Startup and Desktop > OpenXR Runtime.
+
+Or, open SteamVR Settings > Developer > Set SteamVR as OpenXR Runtime.
+
+Make sure SteamVR is the active OpenXR runtime.
+
+✅ 3. Check That SteamVR Is Running
+Your Unity build won’t auto-launch SteamVR unless:
+
+SteamVR is running.
+
+A headset is detected and active.
+
+SteamVR is configured as the OpenXR runtime.
+
+✅ 4. Missing or Misconfigured Action Manifest
+The following line looks correct:
+
+makefile
+Copy
+Edit
+ActionManifestFileRelativeFilePath: StreamingAssets\SteamVR\actions.json
+But ensure that:
+
+actions.json actually exists in StreamingAssets/SteamVR/ in the built project.
+
+The path is correct for the OS (Windows uses \, but Unity might need / in some cases).
+
+The manifest is valid (check for typos or malformed JSON).
+
+You are calling SteamVR_Actions.PreInitialize() if you're customizing input in early script calls.
+
+✅ 5. StereoRenderingMode and InitializationType
+These are fine:
+
+StereoRenderingMode: 1 = Single Pass Instanced (valid)
+
+InitializationType: 1 = Manual (requires SteamVR to be initialized in code)
+
+If you're using manual initialization, make sure you're calling SteamVR.Initialize() or SteamVR_Behaviour is being used early enough.
+
+✅ 6. Unity Build Settings
+Ensure the following:
+
+In Player Settings > XR Plug-in Management, OpenVR (or SteamVR) is enabled.
+
+The scene you're building actually uses VR content and calls the SteamVR SDK.
+
+The headset is working in other VR apps (to rule out a hardware issue).
+
+✅ 7. EditorAppKey
+makefile
+Copy
+Edit
+EditorAppKey: application.generated.unity.myproject.exe
+This should not usually block launching SteamVR, but:
+
+If you’re using this in a deployed app, make sure it's registered correctly in SteamVR’s app manifest (mostly needed for advanced use).
+
+Consider removing this line temporarily to test.
+
+✅ 8. MirrorView: 2
+This just configures how the VR view is mirrored to the desktop. Should not affect launching VR.
+
+✅ TL;DR - Suggested Fixes
+Ensure SteamVR plugin is installed and set up correctly.
+
+Make SteamVR the active OpenXR runtime.
+
+Ensure SteamVR is running before launch.
+
+Double-check XR Plug-in Management and build settings.
+
+If using manual init, ensure SteamVR.Initialize() is called in code.
